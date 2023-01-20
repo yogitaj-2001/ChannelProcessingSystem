@@ -1,0 +1,59 @@
+# README
+
+## Running the Channel Processing Console Application locally
+1. Run command ````dotnet build````
+2. Run command ````dotnet run --project ChannelProcessingDemo\ChannelProcessingDemo.csproj````
+3. Provide the inputs / output file paths as instructed by console application. 
+Sample test data is provided at below path
+
+ChannelProcessingSystem.Tests\TestData\validchannels.txt
+ChannelProcessingSystem.Tests\TestData\validparameters.txt
+ChannelProcessingSystem.Tests\TestData\output.txt
+
+## Running the Channel Processing WebApi locally
+1. Run command ````dotnet build````
+2. Run command ````dotnet run --project ChannelProcessingAPI\ChannelProcessingAPI.csproj````
+3. browse to http://locahost:8080/swagger/index.html or use curl command as below to call rest api end point
+
+To calculate metric b
+
+````
+curl -X 'POST' \
+  'http://localhost:8080/ChannelProcessing/Metricb' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "channelData": [ 0.814723686393179, 0.905791937075619, 0.126986816293506, 0.913375856139019 ],
+    "paramDictionary": {"m": 2.0,"c": 0.5}
+}'
+````
+
+To calculate value of C
+
+````
+curl -X 'POST' \
+  'http://localhost:8080/ChannelProcessing/PerformanceValueC' \
+  -H 'accept: text/plain' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "channelData": [ 0.814723686393179, 0.905791937075619, 0.126986816293506, 0.913375856139019 ],
+    "paramDictionary": {"m": 2.0,"c": 0.5}
+}'
+````
+
+## Unit Testing
+
+1. Browse to root folder in terminal window
+2. Run command ````dotnet test````
+
+## Building Docker Image locally
+
+1. Ensure you have docker desktop installed, path is set in environment variables and docker daemon is running. refer https://www.c-sharpcorner.com/article/run-and-test-asp-net-core-web-api-docker-container-locally/
+2. Run below command 
+````docker build -t channelprocessingsystemwebapi -f Dockerfile . ````
+3. Run below command to see images
+````docker images````
+Execute the below command to create and run a container.
+````docker run -d -p 8080:80 --name channelprocessingsystemcontainer channelprocessingsystemwebapi````
+4. Browse to webapi in container running locally using http://localhost:8080/swagger/index.html
+5. Can also use above curl commands to send request
