@@ -1,9 +1,18 @@
 # README
 
 ## Running the Channel Processing Console Application locally
-1. Run command ````dotnet build````
-2. Run command ````dotnet run --project ChannelProcessingDemo\ChannelProcessingDemo.csproj````
+1. Run command 
+```
+dotnet build
+```
+
+2. Run command 
+```
+dotnet run --project ChannelProcessingDemo\ChannelProcessingDemo.csproj
+```
+
 3. Provide the inputs / output file paths as instructed by console application. 
+
 Sample test data is provided at below path
 
 ChannelProcessingSystem.Tests\TestData\validchannels.txt
@@ -11,8 +20,16 @@ ChannelProcessingSystem.Tests\TestData\validparameters.txt
 ChannelProcessingSystem.Tests\TestData\output.txt
 
 ## Running the Channel Processing WebApi locally
-1. Run command ````dotnet build````
-2. Run command ````dotnet run --project ChannelProcessingAPI\ChannelProcessingAPI.csproj````
+1. Run command 
+```
+dotnet build
+```
+
+2. Run command 
+```
+dotnet run --project ChannelProcessingAPI\ChannelProcessingAPI.csproj
+```
+
 3. browse to http://locahost:8080/swagger/index.html or use curl command as below to call rest api end point
 
 To calculate metric b

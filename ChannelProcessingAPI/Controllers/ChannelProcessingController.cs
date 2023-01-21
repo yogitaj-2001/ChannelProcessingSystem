@@ -19,7 +19,7 @@ public class ChannelProcessingController : ControllerBase
 
     [HttpPost("Metricb")]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Exception))]
-    public ActionResult<double> postMetricb([FromBody][Bind("ChannelProcessingRequest")] ChannelProcessingRequest channelProcessingRequest)
+    public async Task<ActionResult<double>> postMetricb([FromBody][Bind("ChannelProcessingRequest")] ChannelProcessingRequest channelProcessingRequest)
     {
         try
         {
@@ -28,7 +28,7 @@ public class ChannelProcessingController : ControllerBase
             {
                 return BadRequest();
             }
-            return Ok(_performanceMetrics.calculatePerformanceMetricsb(channelProcessingRequest?.ChannelData, channelProcessingRequest?.ParamDictionary));
+            return Ok(await _performanceMetrics.calculatePerformanceMetricsb(channelProcessingRequest?.ChannelData, channelProcessingRequest?.ParamDictionary));
         }
         catch (Exception ex)
         {
@@ -38,7 +38,8 @@ public class ChannelProcessingController : ControllerBase
     }
 
     [HttpPost("PerformanceValueC")]
-    public ActionResult<double[]> postPerformanceValueC([FromBody][Bind("ChannelProcessingRequest")] ChannelProcessingRequest channelProcessingRequest)
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Exception))]
+    public async Task<ActionResult<double[]>> postPerformanceValueC([FromBody][Bind("ChannelProcessingRequest")] ChannelProcessingRequest channelProcessingRequest)
     {
         try
         {
@@ -47,7 +48,7 @@ public class ChannelProcessingController : ControllerBase
             {
                 return BadRequest();
             }
-            return Ok(_performanceMetrics.calculatePerformanceValueC(channelProcessingRequest?.ChannelData, channelProcessingRequest?.ParamDictionary));
+            return Ok(await _performanceMetrics.calculatePerformanceValueC(channelProcessingRequest?.ChannelData, channelProcessingRequest?.ParamDictionary));
         }
         catch (Exception ex)
         {

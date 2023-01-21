@@ -7,26 +7,26 @@ public class PerformanceMetricsTests
     [Fact]
     public void calculatePerformanceMetricsFromFile_Success()
     {
-        var result = metrics.calculatePerformanceMetricsbFromFile(@"TestData/validchannels.txt", @"TestData/validparameters.txt");
+        var result = metrics.calculatePerformanceMetricsbFromFile(@"TestData/validchannels.txt", @"TestData/validparameters.txt").Result;
         Assert.Equal(6.269852166777007, result);
     }
 
     [Fact]
     public void calculatePerformanceMetricsFromFile_Invalid_Error()
     {
-        Assert.Throws<FormatException>(() => metrics.calculatePerformanceMetricsbFromFile(@"TestData/invalidchannels.txt", @"TestData/invalidparameters.txt"));
+        Assert.ThrowsAsync<FormatException>(() => metrics.calculatePerformanceMetricsbFromFile(@"TestData/invalidchannels.txt", @"TestData/invalidparameters.txt"));
     }
 
     [Fact]
     public void calculatePerformanceMetricsFromFile_EmptyPath_Error()
     {
-        Assert.Throws<ArgumentException>(() => metrics.calculatePerformanceMetricsbFromFile(string.Empty, string.Empty));
+        Assert.ThrowsAsync<ArgumentException>(() => metrics.calculatePerformanceMetricsbFromFile(string.Empty, string.Empty));
     }
 
     [Fact]
     public void calculatePerformanceMetricsFromFile_EmptyData_Success()
     {
-        var result = metrics.calculatePerformanceMetricsbFromFile(@"TestData/emptychannels.txt", @"TestData/emptyparameters.txt");
+        var result = metrics.calculatePerformanceMetricsbFromFile(@"TestData/emptychannels.txt", @"TestData/emptyparameters.txt").Result;
         Assert.Equal(0, result);
     }
 
@@ -34,21 +34,21 @@ public class PerformanceMetricsTests
     public void calculatePerformanceMetricsb_Success()
     {
         var result = metrics.calculatePerformanceMetricsb(new double[] {
-            0.3434353433, 0.78347934793, 0.9049384934, 0.49584958945, 0.78934039403, 0.34343434}, new Dictionary<string, double> { { "m", 2.0 }, { "c", 0.5 } });
+            0.3434353433, 0.78347934793, 0.9049384934, 0.49584958945, 0.78934039403, 0.34343434}, new Dictionary<string, double> { { "m", 2.0 }, { "c", 0.5 } }).Result;
         Assert.Equal(3.6349170749950646, result);
     }
 
     [Fact]
     public void calculatePerformanceMetricsbFromStringContent_Success()
     {
-        var result = metrics.calculatePerformanceMetricsbFromStringContent("X, 0.3434353433, 0.78347934793, 0.9049384934, 0.49584958945, 0.78934039403, 0.34343434", "m, 2.0\nc, 0.5");
+        var result = metrics.calculatePerformanceMetricsbFromStringContent("X, 0.3434353433, 0.78347934793, 0.9049384934, 0.49584958945, 0.78934039403, 0.34343434", "m, 2.0\nc, 0.5").Result;
         Assert.Equal(3.6349170749950646, result);
     }
 
     [Fact]
     public void calculatePerformanceValueCFromFile_Success()
     {
-        var result = metrics.calculatePerformanceValueCFromFile(@"TestData/validchannels.txt", @"TestData/validparameters.txt");
+        var result = metrics.calculatePerformanceValueCFromFile(@"TestData/validchannels.txt", @"TestData/validparameters.txt").Result;
 
         Assert.Equal(100, result.Length);
         Assert.Equal(new double[] {
@@ -58,7 +58,7 @@ public class PerformanceMetricsTests
     public void calculatePerformanceValueC_Success()
     {
         var result = metrics.calculatePerformanceValueC(new double[] {
-            0.3434353433, 0.78347934793, 0.9049384934, 0.49584958945, 0.78934039403, 0.34343434}, new Dictionary<string, double> { { "m", 2.0 }, { "c", 0.5 } });
+            0.3434353433, 0.78347934793, 0.9049384934, 0.49584958945, 0.78934039403, 0.34343434}, new Dictionary<string, double> { { "m", 2.0 }, { "c", 0.5 } }).Result;
 
         Assert.Equal(6, result.Length);
         Assert.Equal(new double[] {
@@ -68,7 +68,7 @@ public class PerformanceMetricsTests
     [Fact]
     public void calculatePerformanceValueCFromStringContent_Success()
     {
-        var result = metrics.calculatePerformanceValueCFromStringContent("X, 0.3434353433, 0.78347934793, 0.9049384934, 0.49584958945, 0.78934039403, 0.34343434", "m, 2.0\nc, 0.5");
+        var result = metrics.calculatePerformanceValueCFromStringContent("X, 0.3434353433, 0.78347934793, 0.9049384934, 0.49584958945, 0.78934039403, 0.34343434", "m, 2.0\nc, 0.5").Result;
 
         Assert.Equal(6, result.Length);
         Assert.Equal(new double[] {

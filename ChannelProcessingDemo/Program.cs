@@ -28,7 +28,7 @@ internal class Program
         Console.WriteLine("Choose an option from the following list:");
         Console.WriteLine("\tb - Calculate Metric b");
         Console.WriteLine("\tc - Calculate C");
-        Console.Write("Your option? ");
+        Console.WriteLine("Your option? ");
 
         PerformanceMetrics pm = new PerformanceMetrics();
         // Use a switch statement to do the math.
@@ -37,7 +37,7 @@ internal class Program
             case "b":
                 var valueOfb = pm.calculatePerformanceMetricsbFromFile(inputFileName, paramFileName);
                 File.WriteAllText(outputFileName, "b, " + valueOfb);
-                Console.Write($"Your Output {valueOfb}");
+                Console.WriteLine($"Your Output {valueOfb}");
                 break;
             case "c":
                 var valueOfC = pm.calculatePerformanceValueCFromFile(inputFileName, paramFileName);

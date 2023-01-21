@@ -33,7 +33,7 @@ public class ChannelProcessingControllerTests
         var result = controller.postMetricb(request);
 
         // Assert
-        OkObjectResult okResult = result.Result as OkObjectResult;
+        OkObjectResult okResult = result.Result.Result as OkObjectResult;
         Assert.NotNull(okResult);
         Assert.Equal(200, okResult.StatusCode);
         Assert.IsType<double>(okResult.Value);
@@ -55,7 +55,7 @@ public class ChannelProcessingControllerTests
         var result = controller.postPerformanceValueC(request);
 
         // Assert
-        OkObjectResult okResult = result.Result as OkObjectResult;
+        OkObjectResult okResult = result.Result.Result as OkObjectResult;
         Assert.NotNull(okResult);
         Assert.Equal(200, okResult.StatusCode);
         Assert.IsType<double[]>(okResult.Value);
@@ -76,7 +76,7 @@ public class ChannelProcessingControllerTests
         var result = controller.postMetricb(request);
 
         // Assert
-        BadRequestResult badResult = result.Result as BadRequestResult;
+        BadRequestResult badResult = result.Result.Result as BadRequestResult;
         Assert.NotNull(badResult);
         Assert.Equal(400, badResult.StatusCode);
     }
@@ -96,7 +96,7 @@ public class ChannelProcessingControllerTests
         var result = controller.postPerformanceValueC(request);
 
         // Assert
-        BadRequestResult badResult = result.Result as BadRequestResult;
+        BadRequestResult badResult = result.Result.Result as BadRequestResult;
         Assert.NotNull(badResult);
         Assert.Equal(400, badResult.StatusCode);
     }
@@ -122,7 +122,7 @@ public class ChannelProcessingControllerTests
         var result = controller1.postMetricb(request);
 
         // Assert
-        StatusCodeResult errorResult = result.Result as StatusCodeResult;
+        StatusCodeResult errorResult = result.Result.Result as StatusCodeResult;
         Assert.NotNull(result);
         Assert.Equal(500, errorResult.StatusCode);
     }
@@ -148,7 +148,7 @@ public class ChannelProcessingControllerTests
         var result = controller1.postPerformanceValueC(request);
 
         // Assert
-        StatusCodeResult errorResult = result.Result as StatusCodeResult;
+        StatusCodeResult errorResult = result.Result.Result as StatusCodeResult;
         Assert.NotNull(result);
         Assert.Equal(500, errorResult.StatusCode);
     }

@@ -6,12 +6,12 @@ namespace ChannelProcessing;
 
 public interface IPerformanceMetrics
 {
-    public double calculatePerformanceMetricsb(double[] input, IDictionary<string, double>? param);
-    public double[] calculatePerformanceValueC(double[] input, IDictionary<string, double>? param);
-    public double calculatePerformanceMetricsbFromFile(string inputFileName, string paramFileName);
-    public double[] calculatePerformanceValueCFromFile(string inputFileName, string paramFileName);
-    public double calculatePerformanceMetricsbFromStringContent(string inputContent, string paramContent);
-    public double[] calculatePerformanceValueCFromStringContent(string inputContent, string paramContent);
+    public Task<double> calculatePerformanceMetricsb(double[] input, IDictionary<string, double>? param);
+    public Task<double[]> calculatePerformanceValueC(double[] input, IDictionary<string, double>? param);
+    public Task<double> calculatePerformanceMetricsbFromFile(string inputFileName, string paramFileName);
+    public Task<double[]> calculatePerformanceValueCFromFile(string inputFileName, string paramFileName);
+    public Task<double> calculatePerformanceMetricsbFromStringContent(string inputContent, string paramContent);
+    public Task<double[]> calculatePerformanceValueCFromStringContent(string inputContent, string paramContent);
 }
 
 public class PerformanceMetrics : IPerformanceMetrics
@@ -27,7 +27,7 @@ public class PerformanceMetrics : IPerformanceMetrics
         _functions = new Functions();
     }
 
-    public double calculatePerformanceMetricsb(double[] input, IDictionary<string, double>? param)
+    public async Task<double> calculatePerformanceMetricsb(double[] input, IDictionary<string, double>? param)
     {
         try
         {
@@ -49,21 +49,21 @@ public class PerformanceMetrics : IPerformanceMetrics
                 valueOfB[i] = intermediateB.calculateB();
             }
 
-            var valueOfb = metricb.calculateMetricb(valueOfB);
+            var valueOfb = await Task.Run(() => metricb.calculateMetricb(valueOfB));
             _functions.ValueOfb = valueOfb;
             return valueOfb;
         }
         catch (Exception ex)
         {
-            throw ex;
+            throw;
         }
     }
 
-    public double[] calculatePerformanceValueC(double[] input, IDictionary<string, double>? param)
+    public async Task<double[]> calculatePerformanceValueC(double[] input, IDictionary<string, double>? param)
     {
         try
         {
-            var valueOfb = calculatePerformanceMetricsb(input, param);
+            var valueOfb = await Task.Run(() => calculatePerformanceMetricsb(input, param));
 
             double[] valueOfC = new double[_input.ChannelDataInput.Length];
             for (int i = 0; i < _input.ChannelDataInput.Length; i++)
@@ -76,40 +76,40 @@ public class PerformanceMetrics : IPerformanceMetrics
         }
         catch (Exception ex)
         {
-            throw ex;
+            throw;
         }
     }
 
-    public double calculatePerformanceMetricsbFromFile(string? inputFileName, string? paramFileName)
+    public async Task<double> calculatePerformanceMetricsbFromFile(string? inputFileName, string? paramFileName)
     {
         _input.acceptChannelInputFromFile(inputFileName);
         _param.acceptParametersFromFile(paramFileName);
 
-        return calculatePerformanceMetricsb(_input.ChannelDataInput, _param.ParamDictionary);
+        return await Task.Run(() => calculatePerformanceMetricsb(_input.ChannelDataInput, _param.ParamDictionary));
     }
 
-    public double[] calculatePerformanceValueCFromFile(string? inputFileName, string? paramFileName)
+    public async Task<double[]> calculatePerformanceValueCFromFile(string? inputFileName, string? paramFileName)
     {
         _input.acceptChannelInputFromFile(inputFileName);
         _param.acceptParametersFromFile(paramFileName);
 
-        return calculatePerformanceValueC(_input.ChannelDataInput, _param.ParamDictionary);
+        return await Task.Run(() => calculatePerformanceValueC(_input.ChannelDataInput, _param.ParamDictionary));
     }
 
-    public double calculatePerformanceMetricsbFromStringContent(string? inputContent, string? paramContent)
+    public async Task<double> calculatePerformanceMetricsbFromStringContent(string? inputContent, string? paramContent)
     {
         _input.acceptChannelInputFromText(inputContent);
         _param.acceptParametersFromText(paramContent);
 
-        return calculatePerformanceMetricsb(_input.ChannelDataInput, _param.ParamDictionary);
+        return await Task.Run(() => calculatePerformanceMetricsb(_input.ChannelDataInput, _param.ParamDictionary));
     }
 
-    public double[] calculatePerformanceValueCFromStringContent(string? inputContent, string? paramContent)
+    public async Task<double[]> calculatePerformanceValueCFromStringContent(string? inputContent, string? paramContent)
     {
         _input.acceptChannelInputFromText(inputContent);
         _param.acceptParametersFromText(paramContent);
 
-        return calculatePerformanceValueC(_input.ChannelDataInput, _param.ParamDictionary);
+        return await Task.Run(() => calculatePerformanceValueC(_input.ChannelDataInput, _param.ParamDictionary));
     }
 
 }
